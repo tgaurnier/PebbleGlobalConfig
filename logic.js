@@ -34,7 +34,7 @@ objects[i++] = {
 
 objects[i++] = {
 	"type": "select",
-	"title": "Timout between checks for weather",
+	"title": "Time between checks for weather",
 	"id": "timeout",
 	"list": [
 		{"value": 300, "text": "5 minutes", "selected": false},
