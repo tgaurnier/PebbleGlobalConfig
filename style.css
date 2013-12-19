@@ -45,6 +45,7 @@ h1 {
 fieldset {
 	margin-bottom: 1em;
 	margin-left: 0;
+	margin-right: 0;
 	padding-left: 2em;
 	text-align: left;
 	border: none;
@@ -77,7 +78,6 @@ legend {
  * Style radio groups
  */
 .radioGroup {
-	/*padding: 0.5em;*/
 }
 .radioContainer {
 	display: inline-block;
@@ -89,11 +89,8 @@ legend {
  * Style select
  */
 select {
-	padding-top: 1em;
-	padding-left: 1em;
 }
 option {
-	padding: 0.5em;
 }
 
 
@@ -118,7 +115,7 @@ option {
  */
 #actionArea {
 	position: relative;
-	margin-top: -4.65em;
+	margin-top: -4.55em;
 	margin-bottom: 0;
 	padding-top: 1em;
 	text-align: center;
