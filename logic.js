@@ -82,6 +82,18 @@ objects[i++] = {
 //}
 
 
+function toggleFieldsets() {
+	var children = document.getElementsByName(this.id + "ToggledFieldset");
+	for(var i = 0; i < children.length; i++) {
+		if(this.checked)
+			children[i].style.display = "block";
+
+		else
+			children[i].style.display = "none";
+	}
+}
+
+
 /**
  * Creates and returns a fieldset containing elements defined by object
  */
@@ -152,16 +164,7 @@ function createFieldset(object) {
 			var label			=	document.createElement("label");
 			label.htmlFor		=	input.id;
 			label.innerHTML		=	object.title;
-			input.onclick		=	function() {
-				var children = document.getElementsByName(this.id + "ToggledFieldset");
-				for(var i = 0; i < children.length; i++) {
-					if(this.checked)
-						children[i].style.display = "block";
-
-					else
-						children[i].style.display = "none";
-				}
-			}
+			input.setAttribute("onclick", "toggleFieldsets");
 
 			object.inputList.forEach(
 				function(inputObject) {
