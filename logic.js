@@ -153,7 +153,7 @@ function createFieldset(object) {
 			label.htmlFor		=	input.id;
 			label.innerHTML		=	object.title;
 			fieldset.id			=	object.id + "Fieldset";
-			fieldset.disabled	=	disabled;
+			fieldset.disabled	=	true;
 			input.onclick		=	function() {
 				document.getElementById(this.id + "Fieldset").disabled = !this.checked;
 			}
