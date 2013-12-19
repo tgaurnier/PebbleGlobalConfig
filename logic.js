@@ -155,7 +155,11 @@ function createFieldset(object) {
 			input.onclick		=	function() {
 				var children = document.getElementsByName(this.id + "ToggledFieldset");
 				for(var i = 0; i < children.length; i++) {
-					children[i].disabled = !this.checked;
+					if(this.checked)
+						children[i].style.display = "block";
+
+					else
+						children[i].style.display = "none";
 				}
 			}
 
@@ -164,7 +168,13 @@ function createFieldset(object) {
 					var fieldset		=	createFieldset(inputObject);
 					fieldset.className	=	"toggledFieldset";
 					fieldset.name		=	this.input.id + "ToggledFieldset";
-					fieldset.disabled	=	!this.input.checked;
+
+					if(this.input.checked)
+						fieldset.style.display = "block";
+
+					else
+						fieldset.style.display = "none";
+
 					this.parent.appendChild(fieldset);
 				},
 				{"parent": fieldset, "input": input}
