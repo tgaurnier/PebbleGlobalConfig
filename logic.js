@@ -152,19 +152,22 @@ function createFieldset(object) {
 			var label			=	document.createElement("label");
 			label.htmlFor		=	input.id;
 			label.innerHTML		=	object.title;
-			fieldset.id			=	object.id + "Fieldset";
-			fieldset.enabled	=	false;
 			input.onclick		=	function() {
-				document.getElementById(this.id + "Fieldset").disabled = !this.checked;
+				var children = document.getElementsByName(this.id + "ToggledFieldset");
+				for(var i = 0; i < children.length; i++) {
+					children[i].disabled = !this.checked;
+				}
 			}
 
 			object.inputList.forEach(
 				function(inputObject) {
 					var fieldset		=	createFieldset(inputObject);
 					fieldset.className	=	"toggledFieldset";
+					fieldset.name		=	this.input.id + "ToggledFieldset";
+					fieldset.disabled	=	!this.input.checked;
 					this.parent.appendChild(fieldset);
 				},
-				{"parent": fieldset}
+				{"parent": fieldset, "input": input}
 			);
 
 			legend.innerHTML = "";
