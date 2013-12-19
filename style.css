@@ -115,13 +115,17 @@ option {
  */
 #actionArea {
 	position: relative;
+	margin-left: 0;
+	margin-right: 0;
 	margin-top: -4.55em;
 	margin-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
 	padding-top: 1em;
 	text-align: center;
 	background: #0C0B07;
 }
 button {
-	width: 45%;
+	width: 44%;
 	height: 3em;
 }
