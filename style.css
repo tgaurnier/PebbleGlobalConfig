@@ -55,6 +55,7 @@ legend {
 	margin-left: -1em;
 	font-size: 1.1em;
 	font-weight: bold;
+	color: #8C8B87;
 }
 
 
@@ -100,6 +101,7 @@ option {
  * Style input toggle
  */
 .inputToggle {
+	margin-left: 1em;
 }
 .toggledFieldset {
 	margin-left: 0;
