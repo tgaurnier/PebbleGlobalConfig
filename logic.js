@@ -82,10 +82,10 @@ objects[i++] = {
 //}
 
 
-function toggleFieldsets() {
-	var children = document.getElementsByName(this.id + "ToggledFieldset");
+function toggleFieldsets(inputID) {
+	var children = document.getElementsByName(inputID + "ToggledFieldset");
 	for(var i = 0; i < children.length; i++) {
-		if(this.checked)
+		if(document.getElementById(inputID).checked)
 			children[i].style.display = "block";
 
 		else
@@ -164,7 +164,7 @@ function createFieldset(object) {
 			var label			=	document.createElement("label");
 			label.htmlFor		=	input.id;
 			label.innerHTML		=	object.title;
-			input.setAttribute("onclick", "toggleFieldsets");
+			input.setAttribute("onclick", "toggleFieldsets('" + input.id + "')");
 
 			object.inputList.forEach(
 				function(inputObject) {
