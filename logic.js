@@ -88,7 +88,6 @@ function toggleFieldsets(inputID) {
 	for(var i = 0; i < children.length; i++) {
 		if(document.getElementById(inputID).checked) {
 			children[i].style.visibility = "visible";
-			document.getElementById("cancel").style.color = "red";
 		}
 
 		else
