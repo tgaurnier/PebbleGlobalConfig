@@ -4,94 +4,18 @@
  */
 
 
-var i = 0;
 var objects = new Array();
 
-objects[i++] = {
-	"type": "title",
-	"value": "Weather Face Configuration"
-};
 
-objects[i++] = {
-	"type": "radioGroup",
-	"name": "theme",
-	"title": "Color theme",
-	"list": [
-		{"value": "White on black", "selected": true},
-		{"value": "Black on white", "selected": false}
-	]
-};
-
-objects[i++] = {
-	"type": "radioGroup",
-	"name": "units",
-	"title": "Units of measurement",
-	"list": [
-		{"value": "Celcius", "id": "Celcius", "selected": false},
-		{"value": "Fahrenheit", "id": "Fahrenheit", "selected": true}
-	]
-};
-
-objects[i++] = {
-	"type": "select",
-	"title": "Time between checks for weather",
-	"id": "timeout",
-	"list": [
-		{"value": 300, "text": "5 minutes", "selected": false},
-		{"value": 600, "text": "10 minutes", "selected": false},
-		{"value": 900, "text": "15 minutes", "selected": true},
-		{"value": 1200, "text": "20 minutes", "selected": false},
-		{"value": 1500, "text": "25 minutes", "selected": false},
-		{"value": 1800, "text": "30 minutes", "selected": false},
-		{"value": 2100, "text": "35 minutes", "selected": false},
-		{"value": 2400, "text": "40 minutes", "selected": false},
-		{"value": 2700, "text": "45 minutes", "selected": false},
-		{"value": 3000, "text": "50 minutes", "selected": false},
-		{"value": 3300, "text": "55 minutes", "selected": false},
-		{"value": 3600, "text": "1 hour", "selected": false}
-	]
-};
-
-objects[i++] = {
-	"type": "inputToggle",
-	"title": "Enable static location",
-	"id": "enableStaticLocation",
-	"selected": false,
-	"inputList": [
-		{
-			"type": "text",
-			"title": "City name",
-			"id": "cityName",
-			"value": ""
-		},
-		{
-			"type": "text",
-			"title": "Territory/State",
-			"id": "territoryName",
-			"value": ""
-		}
-	]
-};
-
-
-//function getQueryString(key) {
-	//var key		=	key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	//var regex	=	new RegExp("[\\?&]" + key + "=([^&#]*)");
-	//var value	=	regex.exec(window.location.href);
-    //return value[1];
-//}
-
-
+/**
+ * When toggling a toggleable field, toggle the disabled attribute.
+ * This currently isn't actually working as of Pebble 2.0-BETA3, include just in case they get it
+ * fixed
+ */
 function toggleFieldsets(inputID) {
 	var children = document.getElementsByName(inputID + "ToggledFieldset");
-	document.location="pebblejs://close#Cancelled";
 	for(var i = 0; i < children.length; i++) {
-		if(document.getElementById(inputID).checked) {
-			children[i].style.visibility = "visible";
-		}
-
-		else
-			children[i].style.visibility = "hidden";
+		children[i].disabled = !document.getElementById(inputID).checked;
 	}
 }
 
@@ -173,12 +97,7 @@ function createFieldset(object) {
 					var fieldset		=	createFieldset(inputObject);
 					fieldset.className	=	"toggledFieldset";
 					fieldset.name		=	this.input.id + "ToggledFieldset";
-
-					if(this.input.checked)
-						fieldset.style.visibility = "visible";
-
-					else
-						fieldset.style.visibility = "hidden";
+					fieldset.disabled	=	!this.input.checked;
 
 					this.parent.appendChild(fieldset);
 				},
@@ -196,6 +115,15 @@ function createFieldset(object) {
 
 
 function build() {
+	// First get array of JSON objects from querry string
+	var pairs = location.search.slice(1).split('&');
+	pairs.forEach(
+		function(pair) {
+			pair = pair.split('=');
+			objects[pair[0]] = JSON.parse(decodeURIComponent(pair[1]));
+		}
+	);
+
 	inputArea = document.getElementById("inputArea");
 
 	objects.forEach(
