@@ -85,11 +85,13 @@ objects[i++] = {
 function toggleFieldsets(inputID) {
 	var children = document.getElementsByName(inputID + "ToggledFieldset");
 	for(var i = 0; i < children.length; i++) {
-		if(document.getElementById(inputID).checked)
-			children[i].style.display = "block";
+		if(document.getElementById(inputID).checked) {
+			children[i].style.visibility = "visible";
+			document.getElementById("cancel").style.color = "red";
+		}
 
 		else
-			children[i].style.display = "none";
+			children[i].style.visibility = "hidden";
 	}
 }
 
@@ -173,10 +175,10 @@ function createFieldset(object) {
 					fieldset.name		=	this.input.id + "ToggledFieldset";
 
 					if(this.input.checked)
-						fieldset.style.display = "block";
+						fieldset.style.visibility = "visible";
 
 					else
-						fieldset.style.display = "none";
+						fieldset.style.visibility = "hidden";
 
 					this.parent.appendChild(fieldset);
 				},
