@@ -84,6 +84,7 @@ objects[i++] = {
 
 function toggleFieldsets(inputID) {
 	var children = document.getElementsByName(inputID + "ToggledFieldset");
+	document.location="pebblejs://close#Cancelled";
 	for(var i = 0; i < children.length; i++) {
 		if(document.getElementById(inputID).checked) {
 			children[i].style.visibility = "visible";
