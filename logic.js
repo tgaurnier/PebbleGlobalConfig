@@ -5,38 +5,34 @@
 
 
 var objects = new Array();
-var returnObject = {values: []}
+var returnObject = {};
 
 
 /**
- * Find object's corresponding form element and push it's value to returnObject.values
+ * Find object's corresponding form element and add it's value to returnObject
  */
 function getValue(object) {
 	switch(object.type) {
 		case "text":
-			returnObject.values.push({object.objectName: document.getElementById(object.id).value});
+			returnObject[object.objectName] = document.getElementById(object.id).value;
 			break;
 
 		case "radioGroup":
 			document.getElementsByName(object.name).forEach(
 				function(radio) {
 					if(radio.checked)
-						returnObject.values.push({this.objectName: radio.value});
+						returnObject[this.objectName] = radio.value;
 				}, object
 			);
 			break;
 
 		case "select":
 			var select = document.getElementById(object.id);
-			returnObject.values.push({
-				object.objectName: select.options[select.selectedIndex].value
-			});
+			returnObject[object.objectName] = select.options[select.selectedIndex].value;
 			break;
 
 		case "inputToggle":
-			returnObject.values.push({
-				object.objectName: document.getElementById(object.id).checked
-			});
+			returnObject[object.objectName] = document.getElementById(object.id).checked;
 			object.list.forEach(getValue);
 			break;
 	}
@@ -91,7 +87,7 @@ function createFieldset(object) {
 					input.value					=	radioObject.value;
 					var label					=	document.createElement("label");
 					label.htmlFor				=	input.id;
-					label.innerHTML				=	radioObject.value;
+					label.innerHTML				=	radioObject.text;
 
 					radioContainer.appendChild(label);
 					radioContainer.appendChild(input);
