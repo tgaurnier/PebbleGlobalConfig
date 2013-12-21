@@ -5,6 +5,42 @@
 
 
 var objects = new Array();
+var returnObject = {values: []}
+
+
+/**
+ * Find object's corresponding form element and push it's value to returnObject.values
+ */
+function getValue(object) {
+	switch(object.type) {
+		case "text":
+			returnObject.values.push({object.objectName: document.getElementById(object.id).value});
+			break;
+
+		case "radioGroup":
+			document.getElementsByName(object.name).forEach(
+				function(radio) {
+					if(radio.checked)
+						returnObject.values.push({this.objectName: radio.value});
+				}, object
+			);
+			break;
+
+		case "select":
+			var select = document.getElementById(object.id);
+			returnObject.values.push({
+				object.objectName: select.options[select.selectedIndex].value
+			});
+			break;
+
+		case "inputToggle":
+			returnObject.values.push({
+				object.objectName: document.getElementById(object.id).checked
+			});
+			object.list.forEach(getValue);
+			break;
+	}
+}
 
 
 /**
@@ -35,6 +71,7 @@ function createFieldset(object) {
 			input.type		=	"text";
 			input.id		=	object.id;
 			input.className	=	"textInput";
+			input.value		=	object.value;
 			fieldset.appendChild(input);
 			break;
 
@@ -51,6 +88,7 @@ function createFieldset(object) {
 					input.name					=	this.name;
 					input.checked				=	radioObject.selected;
 					input.id					=	radioObject.id;
+					input.value					=	radioObject.value;
 					var label					=	document.createElement("label");
 					label.htmlFor				=	input.id;
 					label.innerHTML				=	radioObject.value;
@@ -92,7 +130,7 @@ function createFieldset(object) {
 			label.innerHTML		=	object.title;
 			input.setAttribute("onclick", "toggleFieldsets('" + input.id + "')");
 
-			object.inputList.forEach(
+			object.list.forEach(
 				function(inputObject) {
 					var fieldset		=	createFieldset(inputObject);
 					fieldset.className	=	"toggledFieldset";
@@ -144,15 +182,6 @@ function cancel() {
 
 
 function submit() {
-	var celsius		=	document.getElementById("unitsCelsius");
-	var fahrenheit	=	document.getElementById("unitsFahrenheit");
-	var value = "NULL";
-
-	if(celsius.checked)
-		value = "Celsius"
-
-	else if(fahrenheit.checked)
-		value = "Fahrenheit"
-
-	document.location = "pebblejs://close#" + value;
+	objects.forEach(getValue);
+	document.location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(config));
 }
