@@ -18,12 +18,11 @@ function getValue(object) {
 			break;
 
 		case "radioGroup":
-			document.getElementsByName(object.name).forEach(
-				function(radio) {
-					if(radio.checked)
-						returnObject[this.objectName] = radio.value;
-				}, object
-			);
+			radioGroup = document.getElementsByName(object.name);
+			for(var i = 0; i < radioGroup.length; i++) {
+				if(radioGroup[i].checked)
+					returnObject[object.objectName] = radioGroup[i].value;
+			}
 			break;
 
 		case "select":
@@ -100,7 +99,8 @@ function createFieldset(object) {
 			break;
 
 		case "select":
-			var select = document.createElement("select");
+			var select	=	document.createElement("select");
+			select.id	=	object.id;
 			object.list.forEach(
 				function(optionObject) {
 					option				=	document.createElement("option");
