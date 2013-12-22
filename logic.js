@@ -179,5 +179,5 @@ function cancel() {
 
 function submit() {
 	objects.forEach(getValue);
-	document.location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(config));
+	document.location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(returnObject));
 }
